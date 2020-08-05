@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping(value = "/users")
+@RestController //Controlador Rest
+@RequestMapping(value = "/users") // Para colocar o caminho do Path, ou nome do recurso
 public class UserResource {
 
     @GetMapping
@@ -15,5 +15,4 @@ public class UserResource {
         User u = new User(1L, "Bruno", "bruno@Gmail.com", "9999999","1234567");
         return ResponseEntity.ok().body(u);
     }
-
 }
