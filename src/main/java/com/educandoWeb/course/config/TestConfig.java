@@ -10,8 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 
-@Configuration
-@Profile("test")
+/*
+Essa classe é criada para popular o nosso banco de dados
+ */
+
+@Configuration// Anotação que precisa colocar a para o Spring entender que é uma classe de configuração
+@Profile("test") //Precisa ser igualzinha o profile que esta no yml
 public class TestConfig  implements CommandLineRunner {
 
     @Autowired
