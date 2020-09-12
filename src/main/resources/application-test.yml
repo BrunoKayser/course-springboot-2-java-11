@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:h2:mem:testdb #de tras para frente testdb = nome do banco de dados, mem = banco de dados em memoria
     username: sa # nome do usuario = sa
-    password: # senha é vazia
+    password: # senha Ã© vazia
 
   h2:
     console:
@@ -10,6 +10,8 @@ spring:
       path: /h2-console #Caminho para acessar o banco de dados
 
   jpa:
+    hibernate:
+      ddl-auto: create-drop
     show-sql: true #Habilitar no console para mostrar o comando sql feito no jpa
     properties:
       hibernate:
