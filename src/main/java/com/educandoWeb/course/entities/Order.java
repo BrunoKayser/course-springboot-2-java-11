@@ -6,13 +6,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +48,10 @@ public class Order implements Serializable {
     @Getter
     @Setter
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    @Getter
+    private Set<OrderItem> items = new HashSet<>();
 
     //Utilizado o get desta maneira por que o orderStauts esta sendo transformado em Integer
     //Para ficar compatível ao banco de dados

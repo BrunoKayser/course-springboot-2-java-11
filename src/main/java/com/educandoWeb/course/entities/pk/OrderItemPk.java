@@ -2,6 +2,7 @@ package com.educandoWeb.course.entities.pk;
 
 import com.educandoWeb.course.entities.Order;
 import com.educandoWeb.course.entities.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
