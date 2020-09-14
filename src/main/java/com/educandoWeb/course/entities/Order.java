@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,6 +54,10 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "id.order")
     @Getter
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @Getter @Setter
+    private Payment payment;
 
     //Utilizado o get desta maneira por que o orderStauts esta sendo transformado em Integer
     //Para ficar compatível ao banco de dados
