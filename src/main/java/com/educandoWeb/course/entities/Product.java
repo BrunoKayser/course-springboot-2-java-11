@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Getter
+
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
@@ -30,18 +31,19 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
-    @Setter
+    @Setter @Getter
     private String name;
 
-    @Setter
+    @Setter @Getter
     private String description;
 
-    @Setter
+    @Setter @Getter
     private Double price;
 
-    @Setter
+    @Setter @Getter
     private String imgUrl;
 
     //Set representa um conjunto, com isso não tenho um produto com a mesma categoria mais de uma vez
@@ -51,7 +53,12 @@ public class Product implements Serializable {
     @JoinTable(name = "tb_product_category",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @Getter
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
+
 
     public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
@@ -61,5 +68,13 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> orders = new HashSet<>();
+        for (OrderItem x : items){
+            orders.add(x.getOrder());
+        }
+        return orders;
+    }
 
 }
