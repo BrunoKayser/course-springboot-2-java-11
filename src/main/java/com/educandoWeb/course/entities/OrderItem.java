@@ -12,19 +12,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@EqualsAndHashCode (of = "id")
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "tb_order_item")
 public class OrderItem implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     private OrderItemPk id = new OrderItemPk();
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Integer quantity;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Double price;
 
     public OrderItem(Order order, Product product, Integer quantity, Double price) {
@@ -34,20 +37,24 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    public Double getSubTotal() {
+        return price * quantity;
+    }
+
     @JsonIgnore
-    public Order getOrder(){
+    public Order getOrder() {
         return id.getOrder();
     }
 
-    public void setOrder(Order order){
+    public void setOrder(Order order) {
         id.setOrder(order);
     }
 
-    public Product getProduct(){
+    public Product getProduct() {
         return id.getProduct();
     }
 
-    public void setProduct(Product product){
+    public void setProduct(Product product) {
         id.setProduct(product);
     }
 

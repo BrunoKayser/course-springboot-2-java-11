@@ -59,6 +59,13 @@ public class Order implements Serializable {
     @Getter @Setter
     private Payment payment;
 
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
+        this.id = id;
+        this.moment = moment;
+        setOrderStatus(orderStatus);
+        this.client = client;
+    }
+
     //Utilizado o get desta maneira por que o orderStauts esta sendo transformado em Integer
     //Para ficar compatível ao banco de dados
     //Ou seja, enum para o java e Integer par ao banco de dados
@@ -74,11 +81,12 @@ public class Order implements Serializable {
         }
     }
 
-    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
-        this.id = id;
-        this.moment = moment;
-        setOrderStatus(orderStatus);
-        this.client = client;
+    public Double getTotal(){
+        double sum = 0;
+        for (OrderItem orderItem : items){
+            sum +=orderItem.getSubTotal();
+        }
+        return sum;
     }
 
     @Override
