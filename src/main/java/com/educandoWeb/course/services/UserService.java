@@ -7,6 +7,7 @@ import com.educandoWeb.course.services.exceptions.DataBaseException;
 import com.educandoWeb.course.services.exceptions.ResourceNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -45,10 +46,14 @@ public class UserService {
         // Get one é mais eficiente que o findById para fazer alterações
         // Enquando o findById pega direto do banco de dados o objeto, o getOne não
         // prepara o objeto monitorado para eu poder mecher e depois efetuar uma operação com o banco de dados
-        User entity = userRepository.getOne(id);
-        updateData(entity, user);
+        try {
+            User entity = userRepository.getOne(id);
+            updateData(entity, user);
+            return userRepository.save(entity);
 
-        return userRepository.save(entity);
+        } catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User user) {
