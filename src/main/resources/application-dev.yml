@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring_boot_course_udemy
+    username: postgres
+    password: bruno@123
+
+  jpa:
+    hibernate:
+      ddl-auto: update #Para os dados sempre serem atualizados
+    show-sql: true #Habilitar no console para mostrar o comando sql feito no jpa
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true #Configuração para evitar problemas de versão do Postgres
+
+jwt:
+  secret: MYJWTSECRET
+  expiration: 3600000
