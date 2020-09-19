@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+
+  jpa:
+    hibernate:
+      ddl-auto: none #Para os dados sempre serem atualizados
+    show-sql: false #Habilitar no console para mostrar o comando sql feito no jpa
+    properties:
+      hibernate:
+        format_sql: false
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}

@@ -3,7 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/spring_boot_course_udemy
+    url: jdbc:postgresql://localhost:5432/spring_boot_course_udemy #Caminho para conectar ao banco de dados, contendo o nome
+                                                                  #No banco de dados
     username: postgres
     password: bruno@123
 
